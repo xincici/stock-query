@@ -1,14 +1,11 @@
 import inquirer from 'inquirer';
 import autocomplete from 'inquirer-autocomplete-prompt';
-import { stockList, createCodeMap, getStockDisplayString } from './stock-list.mjs';
 import { searchStocks } from './search-stock.mjs';
-import { fetchStockData, fetchMultipleStocks } from './fetch-stock.mjs';
-import { displayStock, displayMultipleStocks, displayStockList } from './format-output.mjs';
+import { fetchStockData } from './fetch-stock.mjs';
+import { displayStock } from './format-output.mjs';
 
 // Register the autocomplete plugin
 inquirer.registerPrompt('autocomplete', autocomplete);
-
-const codeMap = createCodeMap();
 
 // Keep the interactive session running until the user explicitly exits with Ctrl+C
 process.on('SIGINT', () => {
@@ -30,15 +27,6 @@ async function parseArguments() {
   
   const command = args[0];
   
-  // Special commands
-  if (command === 'ls' || command === 'list') {
-    return { type: 'list' };
-  }
-  
-  if (command === 'all') {
-    return { type: 'all' };
-  }
-  
   if (command === 'help' || command === '-h' || command === '--help') {
     return { type: 'help' };
   }
@@ -53,10 +41,6 @@ async function parseArguments() {
     return await resolveSearchResults(keyword);
   }
   
-  if (codeMap[command]) {
-    return { type: 'query', code: codeMap[command] };
-  }
-
   if (/^(sh|sz|hk)\d{1,6}$/i.test(command)) {
     return { type: 'query', code: command.toLowerCase() };
   }
@@ -71,21 +55,9 @@ async function parseArguments() {
  */
 async function executeAction(action) {
   switch (action.type) {
-    case 'list': {
-      displayStockList(stockList);
-      break;
-    }
-
     case 'query': {
       const stock = await fetchStockData(action.code);
       displayStock(stock);
-      break;
-    }
-
-    case 'all': {
-      const codes = stockList.map(s => s.code);
-      const stocks = await fetchMultipleStocks(codes);
-      displayMultipleStocks(stocks);
       break;
     }
 
@@ -212,26 +184,18 @@ Stock Query CLI - 股票查询工具
   stock [command]
 
 命令:
-  stock              显示交互式菜单进行选择
-  stock <keyword>    查询指定股票 (支持快捷键、名称、拼音或代码)
+  stock              进入连续搜索和查询模式
+  stock <keyword>    查询指定股票 (支持名称、拼音或代码)
   stock search       交互式搜索A股和港股
   stock search <词>  搜索A股和港股并选择查询
-  stock ls|list      显示股票列表
-  stock all          查询所有股票
   stock help         显示帮助信息
 
 示例:
-  stock              # 显示交互菜单
-  stock mt           # 查询美团 (使用快捷键)
+  stock              # 进入连续搜索和查询模式
   stock 美团         # 查询美团 (使用中文名称)
   stock tencent      # 查询腾讯 (使用拼音)
   stock search 茅台  # 搜索贵州茅台
   stock hk03690      # 查询美团 (使用股票代码)
-  stock list         # 显示所有股票列表
-  stock all          # 查询所有股票
-
-快捷键列表:
-${stockList.map(s => `  ${s.key.padEnd(4)} - ${s.name}`).join('\n')}
   `);
 }
 

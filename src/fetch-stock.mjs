@@ -39,15 +39,3 @@ export async function fetchStockData(code) {
     throw new Error(`Failed to fetch stock data for ${code}: ${error.message}`);
   }
 }
-
-/**
- * Fetch multiple stocks data
- * @param {Array<string>} codes - Array of stock codes
- * @returns {Promise<Array>} Array of parsed stock data
- */
-export async function fetchMultipleStocks(codes) {
-  const results = await Promise.all(
-    codes.map(code => fetchStockData(code))
-  );
-  return results;
-}

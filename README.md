@@ -8,7 +8,6 @@
 - 支持股票名称、拼音缩写、股票代码搜索
 - 支持查询当前价格、开盘价、最高价、涨跌幅、涨跌额和更新时间
 - 交互模式下可连续搜索，直到使用 `Ctrl + C` 退出
-- 内置常用港股快捷键映射
 
 ## 安装依赖
 
@@ -39,12 +38,6 @@ node bin/stock
 进入后直接输入关键词，例如 `腾讯`、`maotai` 或 `688981`。工具会实时返回搜索结果，选择股票后展示行情，然后可以继续下一次搜索。按 `Ctrl + C` 退出。
 
 ### 查询单只股票
-
-使用快捷键：
-
-```bash
-node bin/stock mt
-```
 
 使用中文名称：
 
@@ -83,26 +76,6 @@ node bin/stock search 茅台
 node bin/stock search 688981
 ```
 
-### 查看列表
-
-查看内置的常用港股列表：
-
-```bash
-node bin/stock list
-```
-
-或：
-
-```bash
-node bin/stock ls
-```
-
-查询所有内置股票：
-
-```bash
-node bin/stock all
-```
-
 ### 查看帮助
 
 ```bash
@@ -114,21 +87,6 @@ node bin/stock help
 ```bash
 node bin/stock --help
 ```
-
-## 内置快捷键
-
-| 快捷键 | 股票 | 代码 |
-| --- | --- | --- |
-| `mt` | 美团 | `hk03690` |
-| `qq` | 腾讯 | `hk00700` |
-| `al` | 阿里 | `hk09988` |
-| `mi` | 小米 | `hk01810` |
-| `jd` | 京东 | `hk09618` |
-| `ks` | 快手 | `hk01024` |
-| `hf` | 汇丰 | `hk00005` |
-| `st` | 商汤 | `hk00020` |
-| `zl` | 祖龙 | `hk09990` |
-| `zp` | 智谱 | `hk02513` |
 
 ## 股票代码格式
 
@@ -192,6 +150,5 @@ http://qt.gtimg.cn/q=hk00700
     ├── cli.mjs               # 命令解析、交互模式和程序流程
     ├── fetch-stock.mjs       # 行情接口请求与解析
     ├── format-output.mjs     # 终端输出格式化
-    ├── search-stock.mjs      # 股票搜索接口请求与解析
-    └── stock-list.mjs        # 内置股票快捷键列表
+    └── search-stock.mjs      # 股票搜索接口请求与解析
 ```

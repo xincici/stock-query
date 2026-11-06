@@ -26,21 +26,3 @@ export function displayStock(stock) {
  * Display multiple stocks
  * @param {Array<Object>} stocks - Array of stock data objects
  */
-export function displayMultipleStocks(stocks) {
-  stocks.forEach((stock, index) => {
-    if (index > 0) console.log('');
-    displayStock(stock);
-  });
-}
-
-/**
- * Display stock list for selection
- * @param {Array<Object>} stocks - Array of stock objects
- */
-export function displayStockList(stocks) {
-  console.log('\n可用的股票列表：\n');
-  stocks.forEach(stock => {
-    console.log(`  ${stock.key.padEnd(4)} | ${stock.name.padEnd(6)} | ${stock.code}`);
-  });
-  console.log('');
-}
