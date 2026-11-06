@@ -1,0 +1,28 @@
+{
+  "name": "stock-query",
+  "version": "1.0.0",
+  "description": "A CLI tool to query stock information",
+  "type": "module",
+  "main": "src/cli.mjs",
+  "bin": {
+    "stock": "./bin/stock",
+    "stock-query": "./bin/stock"
+  },
+  "scripts": {
+    "start": "node bin/stock"
+  },
+  "keywords": [
+    "stock",
+    "query",
+    "cli"
+  ],
+  "author": "linye",
+  "license": "MIT",
+  "dependencies": {
+    "axios": "^1.6.0",
+    "chalk": "^5.3.0",
+    "iconv-lite": "^0.6.3",
+    "inquirer": "^8.2.5",
+    "inquirer-autocomplete-prompt": "^3.0.1"
+  }
+}
